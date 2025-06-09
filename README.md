@@ -32,7 +32,7 @@ Paste the URL into any remote MCP host, go through the auth flow, and start call
 
 ### Why use the remote server?
 - **Easier setup:** Just copy, paste and auth
-- **Live Updates:** Always up-to-date with the latest tools and improvements
+- **Live updates:** Always up-to-date with the latest tools and improvements
 - **No local runtime required:** Works in environments where local servers can’t run
 - **OAuth support:** scoped, auditable, and SSO-enforced access with stronger organization controls than PATs
 
