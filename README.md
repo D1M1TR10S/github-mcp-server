@@ -30,13 +30,13 @@ Easily connect to the GitHub MCP Server using the hosted version – no local se
 
 Paste the URL into any remote MCP host, go through the auth flow, and start calling GitHub tools right away.
 
-The local MCP server will continue to be fully supported, maintained and updated. Both the remote and local servers run the same open-source codebase and support the full MCP spec.
-
 ### Why use the remote server?
 - **Easier setup:** Just copy, paste and auth
 - **Live Updates:** Always up-to-date with the latest tools and improvements
 - **No local runtime required:** Works in environments where local servers can’t run
 - **OAuth support:** scoped, auditable, and SSO-enforced access with stronger organization controls than PATs
+
+The local MCP server will continue to be fully supported, maintained and updated. Both the remote and local servers run the same open-source codebase and support the full MCP spec.
 
 **More info:**
 - [Changelog Post](#)
