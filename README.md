@@ -4,13 +4,55 @@ The GitHub MCP Server is a [Model Context Protocol (MCP)](https://modelcontextpr
 server that provides seamless integration with GitHub APIs, enabling advanced
 automation and interaction capabilities for developers and tools.
 
-[![Install with Docker in VS Code](https://img.shields.io/badge/VS_Code-Install_Server-0098FF?style=flat-square&logo=visualstudiocode&logoColor=white)](https://insiders.vscode.dev/redirect/mcp/install?name=github&inputs=%5B%7B%22id%22%3A%22github_token%22%2C%22type%22%3A%22promptString%22%2C%22description%22%3A%22GitHub%20Personal%20Access%20Token%22%2C%22password%22%3Atrue%7D%5D&config=%7B%22command%22%3A%22docker%22%2C%22args%22%3A%5B%22run%22%2C%22-i%22%2C%22--rm%22%2C%22-e%22%2C%22GITHUB_PERSONAL_ACCESS_TOKEN%22%2C%22ghcr.io%2Fgithub%2Fgithub-mcp-server%22%5D%2C%22env%22%3A%7B%22GITHUB_PERSONAL_ACCESS_TOKEN%22%3A%22%24%7Binput%3Agithub_token%7D%22%7D%7D) [![Install with Docker in VS Code Insiders](https://img.shields.io/badge/VS_Code_Insiders-Install_Server-24bfa5?style=flat-square&logo=visualstudiocode&logoColor=white)](https://insiders.vscode.dev/redirect/mcp/install?name=github&inputs=%5B%7B%22id%22%3A%22github_token%22%2C%22type%22%3A%22promptString%22%2C%22description%22%3A%22GitHub%20Personal%20Access%20Token%22%2C%22password%22%3Atrue%7D%5D&config=%7B%22command%22%3A%22docker%22%2C%22args%22%3A%5B%22run%22%2C%22-i%22%2C%22--rm%22%2C%22-e%22%2C%22GITHUB_PERSONAL_ACCESS_TOKEN%22%2C%22ghcr.io%2Fgithub%2Fgithub-mcp-server%22%5D%2C%22env%22%3A%7B%22GITHUB_PERSONAL_ACCESS_TOKEN%22%3A%22%24%7Binput%3Agithub_token%7D%22%7D%7D&quality=insiders)
-
 ## Use Cases
 
 - Automating GitHub workflows and processes.
 - Extracting and analyzing data from GitHub repositories.
 - Building AI powered tools and applications that interact with GitHub's ecosystem.
+
+### Authentication
+- **Remote Server:** Supports both **OAuth 2.1** (recommended) and **Personal Access Tokens (PATs)**
+- **Local Server:** PATs only
+
+---
+
+## Remote GitHub MCP Server 🚀
+
+[![Install in VS Code](https://img.shields.io/badge/VS_Code-Install_Server-0098FF?style=flat-square&logo=visualstudiocode&logoColor=white)]() [![Install in VS Code Insiders](https://img.shields.io/badge/VS_Code_Insiders-Install_Server-24bfa5?style=flat-square&logo=visualstudiocode&logoColor=white)]()
+
+Easily connect to the GitHub MCP Server using the hosted version – no local setup or runtime required.
+
+**URL:** https://api.githubcopilot.com/mcp/
+
+**Prerequisities:**
+1. A remote MCP-compatible host that supports remote servers (e.g., GitHub Copilot in VS Code or Claude Desktop)
+2. To access private organization or enterprise data, your GitHub admin may need to approve PAT scopes or authorize the OAuth scopes and permissions (depending on your company's policies)
+
+Paste the URL into any remote MCP host, go through the auth flow, and start calling GitHub tools right away.
+
+The local MCP server will continue to be fully supported, maintained and updated. Both the remote and local servers run the same open-source codebase and support the full MCP spec.
+
+→ [See the changelog](#) for more info on the Remote GitHub MCP Server.
+→ [Refer to our docs](#) for more setup and configuration details.
+
+### Why use the remote server?
+- **Easier setup:** Just copy, paste and auth
+- **Live Updates:** Always up-to-date with the latest tools and improvements
+- **No local runtime required:** Works in environments where local servers can’t run
+- **OAuth support:** scoped, auditable, and SSO-enforced access with stronger organization controls than PATs
+
+> ⚠️ **Note:** The Remote GitHub MCP Server is in **public preview**, and while it leverages GitHub APIs that are generally available (GA), the overall MCP spec around governance, security and policies is still evolving.
+> 
+> We strongly recommend:
+> - Granting only the minimum required scopes (Principle of Least Privilege)
+> - Using in personal or contained environments during early testing
+> - Reviewing usage with your internal security and compliance teams before integrating in production or company-wide contexts
+
+---
+
+## Local GitHub MCP Server
+
+[![Install with Docker in VS Code](https://img.shields.io/badge/VS_Code-Install_Server-0098FF?style=flat-square&logo=visualstudiocode&logoColor=white)](https://insiders.vscode.dev/redirect/mcp/install?name=github&inputs=%5B%7B%22id%22%3A%22github_token%22%2C%22type%22%3A%22promptString%22%2C%22description%22%3A%22GitHub%20Personal%20Access%20Token%22%2C%22password%22%3Atrue%7D%5D&config=%7B%22command%22%3A%22docker%22%2C%22args%22%3A%5B%22run%22%2C%22-i%22%2C%22--rm%22%2C%22-e%22%2C%22GITHUB_PERSONAL_ACCESS_TOKEN%22%2C%22ghcr.io%2Fgithub%2Fgithub-mcp-server%22%5D%2C%22env%22%3A%7B%22GITHUB_PERSONAL_ACCESS_TOKEN%22%3A%22%24%7Binput%3Agithub_token%7D%22%7D%7D) [![Install with Docker in VS Code Insiders](https://img.shields.io/badge/VS_Code_Insiders-Install_Server-24bfa5?style=flat-square&logo=visualstudiocode&logoColor=white)](https://insiders.vscode.dev/redirect/mcp/install?name=github&inputs=%5B%7B%22id%22%3A%22github_token%22%2C%22type%22%3A%22promptString%22%2C%22description%22%3A%22GitHub%20Personal%20Access%20Token%22%2C%22password%22%3Atrue%7D%5D&config=%7B%22command%22%3A%22docker%22%2C%22args%22%3A%5B%22run%22%2C%22-i%22%2C%22--rm%22%2C%22-e%22%2C%22GITHUB_PERSONAL_ACCESS_TOKEN%22%2C%22ghcr.io%2Fgithub%2Fgithub-mcp-server%22%5D%2C%22env%22%3A%7B%22GITHUB_PERSONAL_ACCESS_TOKEN%22%3A%22%24%7Binput%3Agithub_token%7D%22%7D%7D&quality=insiders)
 
 ## Prerequisites
 
