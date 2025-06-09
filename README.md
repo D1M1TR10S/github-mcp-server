@@ -18,7 +18,7 @@ automation and interaction capabilities for developers and tools.
 
 ## Remote GitHub MCP Server 🚀
 
-[![Install in VS Code](https://img.shields.io/badge/VS_Code-Install_Server-0098FF?style=flat-square&logo=visualstudiocode&logoColor=white)]() [![Install in VS Code Insiders](https://img.shields.io/badge/VS_Code_Insiders-Install_Server-24bfa5?style=flat-square&logo=visualstudiocode&logoColor=white)]()
+[![Install in VS Code](https://img.shields.io/badge/VS_Code-Install_Server-0098FF?style=flat-square&logo=visualstudiocode&logoColor=white)](https://insiders.vscode.dev/redirect/mcp/install?name=github&config=%7B%22type%22%3A%20%22http%22%2C%22url%22%3A%20%22https%3A%2F%2Fapi.githubcopilot.com%2Fmcp%2F%22%7D) [![Install in VS Code Insiders](https://img.shields.io/badge/VS_Code_Insiders-Install_Server-24bfa5?style=flat-square&logo=visualstudiocode&logoColor=white)](https://insiders.vscode.dev/redirect/mcp/install?name=github&config=%7B%22type%22%3A%20%22http%22%2C%22url%22%3A%20%22https%3A%2F%2Fapi.githubcopilot.com%2Fmcp%2F%22%7D&quality=insiders)
 
 Easily connect to the GitHub MCP Server using the hosted version – no local setup or runtime required.
 
@@ -36,11 +36,11 @@ Paste the URL into any remote MCP host, go through the auth flow, and start call
 - **No local runtime required:** Works in environments where local servers can’t run
 - **OAuth support:** scoped, auditable, and SSO-enforced access with stronger organization controls than PATs
 
-The local MCP server will continue to be fully supported, maintained and updated. Both the remote and local servers run the same open-source codebase and support the full MCP spec.
+The local MCP server will continue to be fully supported, maintained and updated. Both the remote and local servers are built from this open-source codebase and support the full MCP spec. 
 
 **More info:**
 - [Changelog Post](#)
-- [Setup & Configuration Docs](#)
+- [Setup & Configuration Docs](./docs/remote-server.md)
 
 > ⚠️ **Note:** The Remote GitHub MCP Server is in **public preview**. While it leverages GitHub APIs that are generally available (GA), the overall MCP spec — including tooling governance, authorization boundaries, and data safety policies — is still evolving.
 > 
@@ -196,6 +196,7 @@ The following sets of tools are available (all are on by default):
 | `pull_requests`         | Pull request operations (create, merge, review)               |
 | `code_security`         | Code scanning alerts and security features                    |
 | `experiments`           | Experimental features (not considered stable)                 |
+
 
 #### Specifying Toolsets
 
