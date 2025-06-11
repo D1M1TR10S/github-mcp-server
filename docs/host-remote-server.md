@@ -1,6 +1,6 @@
-# Building a Host App for the Remote GitHub MCP Server
+# Building a Host App for the GitHub Remote MCP Server
 
-This guide provides a comprehensive walkthrough for building host applications that connect to **remote** Model Context Protocol (MCP) servers. We will start with core concepts and then provide a practical, in-depth example of how to integrate with the official GitHub MCP server.
+This guide provides a high-level walkthrough for building host applications that connect to **remote** Model Context Protocol (MCP) servers. We will start with core concepts and then provide a practical, in-depth example of how to integrate with the official GitHub Remote MCP Server.
 
 The goal is to explain the architecture at a high-level, define key requirements, and provide actionable code examples to get you started, while pointing to official documentation for deeper implementation details.
 
@@ -14,10 +14,10 @@ The goal is to explain the architecture at a high-level, define key requirements
   - [Step 2: Handle Authentication](#step-2-handle-authentication)
   - [Step 3: Choose Your Authentication Approach](#step-3-choose-your-authentication-approach)
 - [Part 2: Guide to GitHub Integration](#part-2-guide-to-github-integration)
-  - [Step 1: Create Your GitHub OAuth App](#step-1-create-your-github-oauth-app)
+  - [Step 1: Create an OAuth-enabled App Using the GitHub UI](#step-1-create-an-oauth-enabled-app-using-the-github-ui)
   - [Step 2: Define Your Configuration](#step-2-define-your-configuration)
   - [Step 3: Implement the OAuth Handshake](#step-3-implement-the-oauth-handshake)
-  - [Step 4: Connect to the Remote GitHub MCP Server](#step-4-connect-to-the-remote-github-mcp-server)
+  - [Step 4: Connect to the GitHub Remote MCP Server](#step-4-connect-to-the-github-remote-mcp-server)
   - [Step 5: Execute GitHub Tools](#step-5-execute-github-tools)
 - [Handling Organization Access Restrictions](#handling-organization-access-restrictions)
 - [Essential Security Considerations](#essential-security-considerations)
@@ -40,7 +40,7 @@ flowchart TB
     end
 
     subgraph "Remote Servers (Internet)"
-        RS1[Remote GitHub MCP Server]
+        RS1[GitHub Remote MCP Server]
     end
 
     subgraph "Local Servers (On-Machine)"
@@ -58,9 +58,9 @@ flowchart TB
 
 - **Host Application**: The user-facing application you are building. It manages connections to one or more MCP servers and orchestrates tool calls.
 - **MCP Client**: A component inside your host application that maintains a 1:1 connection with a single MCP server.
-- **MCP Server**: A service that provides access to a specific set of tools. Remote servers, like the Remote GitHub MCP Server, are accessed over the internet and require authentication.
+- **MCP Server**: A service that provides access to a specific set of tools. Remote servers, like the GitHub Remote MCP Server, are accessed over the internet and require authentication.
 
-For the full spec, see the [official MCP specification](https://modelcontextprotocol.io/specification/2025-03-26).
+For the full spec, see the [official MCP specification](https://modelcontextprotocol.io/specification/draft).
 
 ---
 
@@ -68,15 +68,15 @@ For the full spec, see the [official MCP specification](https://modelcontextprot
 
 ### Step 1: Implement the Connection (Transport)
 
-Your host application's MCP client must connect to the remote server's URL. This connection is established using HTTP and is kept open for real-time communication using Server-Sent Events (SSE).
+Your host application's MCP client will typically [connect to the GitHub Remote MCP server via HTTP](https://modelcontextprotocol.io/specification/draft/basic/transports#streamable-http).
 
-For implementation details, choose an [MCP SDK](https://modelcontextprotocol.io/sdks) for your preferred language and refer to its documentation for transport implementation.
+For implementation details, choose an [MCP SDK](https://modelcontextprotocol.io/sdks) that matches your preferred language and refer to its documentation for transport implementation.
 
 > **Note**: SDK features and documentation vary by language. The TypeScript, Python, and Java SDKs currently provide built-in transport implementations.
 
 ### Step 2: Handle Authentication
 
-The Remote GitHub MCP Server requires a valid Authorization token in the `Authorization` header. 
+The GitHub Remote MCP Server requires a valid Authorization token in the `Authorization` header. 
 
 **Supported authentication methods:**
 - OAuth 2.0 Authorization Code flow (recommended for host applications)
@@ -84,44 +84,53 @@ The Remote GitHub MCP Server requires a valid Authorization token in the `Author
 - GitHub App tokens
 - Any valid GitHub access token
 
-**Important**: The Remote GitHub MCP Server itself does not provide an OAuth App. Your host application must obtain valid GitHub access tokens through one of the supported methods.
+**Important**: The GitHub Remote MCP Server itself does not provide Authentication services. Your host application must obtain valid GitHub access tokens through one of the supported methods.
 
 ### Step 3: Choose Your Authentication Approach
 
-#### Option A: Direct Authentication (Simpler)
+#### Option A: MCP Authorization Discovery (Recommended, standards-compliant)
+For applications that want to follow the full MCP specification:
+1. Make an unauthenticated request to `https://api.githubcopilot.com/mcp/`
+2. Receive a `401` with `WWW-Authenticate` header pointing to discovery endpoints
+3. Follow the discovery chain to find OAuth endpoints.
+4. Perform OAuth 2.0 using discovered endpoints.
+
+#### Option B: Direct Authentication (simpler)
 If you already know you're connecting to GitHub, you can skip discovery and use known endpoints:
 - Authorization: `https://github.com/login/oauth/authorize`
 - Token exchange: `https://github.com/login/oauth/access_token`
 
-#### Option B: MCP Authorization Discovery (Standards-compliant)
-For applications that want to follow the full MCP specification:
-1. Make an unauthenticated request to `https://api.githubcopilot.com/mcp/`
-2. Receive a `401` with `WWW-Authenticate` header pointing to discovery endpoints
-3. Follow the discovery chain to find OAuth endpoints
-4. Perform OAuth 2.0 using discovered endpoints
+#### Option C: Authentication Using PAT (Not Recommended)
+Although not recommended, it is also possible to skip the OAuth flow by providing a GitHub Personal Access Token (PAT) by including an HTTP header similar to the following:
+```
+Authorization: Bearer <your GitHub PAT>
+```
 
-**Note**: Dynamic Client Registration is NOT supported. You must use an existing GitHub OAuth App regardless of which approach you choose.
+
+**Note**: Dynamic Client Registration is NOT supported. You must use either a [GitHub App](https://docs.github.com/en/apps/using-github-apps/about-using-github-apps#about-github-apps) or an [OAuth App](https://docs.github.com/en/apps/oauth-apps) on GitHub in order to authenticate using OAuth.  In most cases, this means creating a new App via the GitHub UI.
 
 ---
 
 ## Part 2: Guide to GitHub Integration
 
-### Step 1: Create Your GitHub OAuth App
+MCP Client Providers are encouraged to create either a [GitHub App](https://docs.github.com/en/apps/using-github-apps/about-using-github-apps#about-github-apps) or an [OAuth App](https://docs.github.com/en/apps/oauth-apps) on GitHub in order to enable clients to authenticate using OAuth.  GitHub does not provide a general purpose App for MCP clients to leverage.
 
-1. Go to GitHub → Settings → Developer Settings → OAuth Apps
-2. Click "New OAuth App"
-3. Fill in:
-   - Application name
-   - Homepage URL
-   - Callback URL (must match your backend)
-4. Save the Client ID and Secret (backend only)
+### Step 1: Create an OAuth-enabled App Using the GitHub UI
 
-For more info, see GitHub's documentation [creating an OAuth App](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/creating-an-oauth-app).
+Detailed instructions for creating a GitHub App can be found at ["Creating GitHub Apps"](https://docs.github.com/en/apps/creating-github-apps/about-creating-github-apps/about-creating-github-apps#building-a-github-app).<br/>
+Detailed instructions for creating an OAuth App can be found ["Creating an OAuth App"](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/creating-an-oauth-app).
+
+For guidance on which type of app to choose, see ["Differences Between GitHub Apps and OAuth Apps"](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/differences-between-github-apps-and-oauth-apps).
 
 **Key Considerations:**  
-- This guide uses **GitHub OAuth Apps** for the OAuth 2.0 flow. While **GitHub App tokens** are supported by the Remote MCP Server, **GitHub Apps themselves cannot initiate the OAuth flow** due to their static callback URL design.
-- GitHub OAuth Apps are always **publicly visible** after creation. There is **no private visibility option**, unlike GitHub Apps, which can be scoped to your org or account. You can still restrict usage to specific users or clients in your own app logic.
-- You **do not need to publish** your OAuth App to the GitHub Marketplace. Simply creating and configuring it correctly is sufficient for Remote MCP Server access.
+- GitHub supports two types of Apps:  [**GitHub Apps**](https://docs.github.com/en/apps/using-github-apps/about-using-github-apps#about-github-apps) and [**OAuth Apps**](https://docs.github.com/en/apps/oauth-apps).
+- Tokens provided by **GitHub Apps** are generally more secure because they:
+  - include an expiration
+  - include support for fine-grained permissions
+- **GitHub Apps** must be installed on a GitHub Organization before they can be used.<br/>In some cases, installation must be approved by someone in the Organization with Admin permissions.  For more details, see [this explanation](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/differences-between-github-apps-and-oauth-apps#who-can-install-github-apps-and-authorize-oauth-apps).<br/>By contrast, **OAuth Apps** don't require installation and, typically, can be used immediately.
+- Members of an Organization may use the GitHub UI to [request that a GitHub App be installed](https://docs.github.com/en/apps/using-github-apps/requesting-a-github-app-from-your-organization-owner) Organization-wide.
+- While not strictly necessary, if you expect that a wide range of users will use your MCP Client, consider publishing your OAuth-enabled App on the [GitHub App Marketplace](https://github.com/marketplace?type=apps) to ensure that it's discoverable by your audience.
+
 
 ### Step 2: Define Your Configuration
 
@@ -143,7 +152,7 @@ export const GITHUB_OAUTH_CONFIG = {
 Your application must perform the standard Authorization Code flow.
 
 > **Note:**  
-> [PKCE (Proof Key for Code Exchange)](https://datatracker.ietf.org/doc/html/rfc7636) is included in the MCP spec. Wile the GitHub MCP Server currently accepts tokens from OAuth apps without it today, PKCE support will soon be added and become a requirement. We recommend implementing it now to future-proof your integration.
+> [PKCE (Proof Key for Code Exchange)](https://datatracker.ietf.org/doc/html/rfc7636) is included in the MCP spec. While the GitHub MCP Server currently accepts tokens from OAuth apps without it today, PKCE support will soon be added and become a requirement. We recommend implementing it now to future-proof your integration.
 
 ```
 // Step 1: Build the authorization URL
@@ -175,7 +184,7 @@ const tokenResponse = await fetch(GITHUB_OAUTH_CONFIG.tokenUrl, {
 const { access_token } = await tokenResponse.json();
 ```
 
-### Step 4: Connect to the Remote GitHub MCP Server
+### Step 4: Connect to the GitHub Remote MCP Server
 
 Once you have an `access_token`, you can establish an authenticated MCP connection.
 
@@ -244,3 +253,5 @@ Organizations may block OAuth apps until explicitly approved. If a tool call fai
 - [GitHub Docs on Creating OAuth Apps](https://docs.github.com/en/apps/oauth-apps)
 - GitHub Docs on Installing OAuth Apps into a [Personal Account](https://docs.github.com/en/apps/oauth-apps/using-oauth-apps/installing-an-oauth-app-in-your-personal-account) and [Organization](https://docs.github.com/en/apps/oauth-apps/using-oauth-apps/installing-an-oauth-app-in-your-organization)
 - [MCP SDKs](https://modelcontextprotocol.io/sdk/java/mcp-overview)
+- [Managing OAuth Apps at the Organization Level](https://docs.github.com/en/organizations/managing-oauth-access-to-your-organizations-data)
+- [Managing Programmatic Access at the Organization Level](https://docs.github.com/en/organizations/managing-programmatic-access-to-your-organization)
