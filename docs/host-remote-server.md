@@ -2,7 +2,7 @@
 
 This guide provides a comprehensive walkthrough for building host applications that connect to **remote** Model Context Protocol (MCP) servers. We will start with core concepts and then provide a practical, in-depth example of how to integrate with the official GitHub MCP server.
 
-Our goal is to provide a clear roadmap: explaining the architecture, defining the requirements, and providing actionable code examples to get you started, while pointing to official documentation for deep implementation details.
+The goal is to explain the architecture at a high-level, define key requirements, and provide actionable code examples to get you started, while pointing to official documentation for deeper implementation details.
 
 ---
 
