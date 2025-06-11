@@ -9,7 +9,7 @@ Our goal is to provide a clear roadmap: explaining the architecture, defining th
 ## Table of Contents
 
 - [Understanding MCP Architecture](#understanding-mcp-architecture)
-- [Core Components & a High-Level Diagram](#core-components--a-high-level-diagram)
+- [Core Components & a High-Level Diagram](#core-components-&-high-level-diagram)
 - [Host vs. Client vs. Server](#host-vs-client-vs-server)
 - [Part 1: Blueprint for a Remote Host](#part-1-blueprint-for-a-remote-host)
   - [Core Requirement 1: Transport & Connection](#core-requirement-1-transport--connection)
