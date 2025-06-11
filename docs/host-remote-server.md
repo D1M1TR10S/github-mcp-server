@@ -244,5 +244,3 @@ Organizations may block OAuth apps until explicitly approved. If a tool call fai
 - [GitHub Docs on Creating OAuth Apps](https://docs.github.com/en/apps/oauth-apps)
 - GitHub Docs on Installing OAuth Apps into a [Personal Account](https://docs.github.com/en/apps/oauth-apps/using-oauth-apps/installing-an-oauth-app-in-your-personal-account) and [Organization](https://docs.github.com/en/apps/oauth-apps/using-oauth-apps/installing-an-oauth-app-in-your-organization)
 - [MCP SDKs](https://modelcontextprotocol.io/sdk/java/mcp-overview)
-
-By using a secure OAuth foundation and the patterns above, you can build powerful host applications that plug into GitHub’s Remote MCP Server and the wider MCP ecosystem.
