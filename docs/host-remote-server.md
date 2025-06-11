@@ -9,9 +9,10 @@ Our goal is to provide a clear roadmap: explaining the architecture, defining th
 ## Table of Contents
 
 - [Understanding MCP Architecture](#understanding-mcp-architecture)
-- [Part 1: Blueprint for a Remote Host](#part-1-blueprint-for-a-remote-host)
-  - [Core Requirement 1: Transport & Connection](#core-requirement-1-transport--connection)
-  - [Core Requirement 2: The OAuth 2.0 Authentication Flow](#core-requirement-2-the-oauth-20-authentication-flow)
+- [Part 1: Essential Steps for a Remote Host](#part-1-essential-steps-for-a-remote-host)
+  - [Step 1: Implement the Connection (Transport)](#step-1-implement-the-connection-transport)
+  - [Step 2: Handle Authentication](#step-2-handle-authentication)
+  - [Step 3: Choose Your Authentication Approach](#step-3-choose-your-authentication-approach)
 - [Part 2: Guide to GitHub Integration](#part-2-guide-to-github-integration)
   - [Step 1: Create Your GitHub OAuth App](#step-1-create-your-github-oauth-app)
   - [Step 2: Define Your Configuration](#step-2-define-your-configuration)
@@ -20,7 +21,7 @@ Our goal is to provide a clear roadmap: explaining the architecture, defining th
   - [Step 5: Execute GitHub Tools](#step-5-execute-github-tools)
 - [Handling Organization Access Restrictions](#handling-organization-access-restrictions)
 - [Essential Security Considerations](#essential-security-considerations)
-- [Further Resources & Conclusion](#further-resources--conclusion)
+- [Additional Resources](#additional-resources)
 
 ---
 
@@ -63,7 +64,7 @@ For the full spec, see the [official MCP specification](https://modelcontextprot
 
 ---
 
-## Part 1: Essential Steps for a Remote Host Application
+## Part 1: Essential Steps for a Remote Host
 
 ### Step 1: Implement the Connection (Transport)
 
@@ -238,7 +239,7 @@ Organizations may block OAuth apps until explicitly approved. If a tool call fai
 - **HTTPS Only**: Never send requests over plaintext HTTP. Always use HTTPS in production.
 - **PKCE:** We strongly recommend implementing [PKCE](https://datatracker.ietf.org/doc/html/rfc7636) for all OAuth flows to prevent code interception, to prepare for upcoming PKCE support.
 
-## Further Resources & Conclusion
+## Additional Resources
 - [MCP Official Spec](https://modelcontextprotocol.io/specification/2025-03-26)
 - [GitHub Docs on Creating OAuth Apps](https://docs.github.com/en/apps/oauth-apps)
 - GitHub Docs on Installing OAuth Apps into a [Personal Account](https://docs.github.com/en/apps/oauth-apps/using-oauth-apps/installing-an-oauth-app-in-your-personal-account) and [Organization](https://docs.github.com/en/apps/oauth-apps/using-oauth-apps/installing-an-oauth-app-in-your-organization)
