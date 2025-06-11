@@ -9,8 +9,6 @@ Our goal is to provide a clear roadmap: explaining the architecture, defining th
 ## Table of Contents
 
 - [Understanding MCP Architecture](#understanding-mcp-architecture)
-- [Core Components & a High-Level Diagram](#core-components-&-high-level-diagram)
-- [Host vs. Client vs. Server](#host-vs-client-vs-server)
 - [Part 1: Blueprint for a Remote Host](#part-1-blueprint-for-a-remote-host)
   - [Core Requirement 1: Transport & Connection](#core-requirement-1-transport--connection)
   - [Core Requirement 2: The OAuth 2.0 Authentication Flow](#core-requirement-2-the-oauth-20-authentication-flow)
@@ -30,7 +28,7 @@ Our goal is to provide a clear roadmap: explaining the architecture, defining th
 
 The Model Context Protocol (MCP) enables seamless communication between your application and various external tools through a standardized client-server architecture.
 
-### Core Components & High-Level Diagram
+### High-level Architecture
 
 ```mermaid
 flowchart TB
@@ -55,9 +53,7 @@ flowchart TB
     MC2 <-->|"stdio"| LS1
 ```
 
----
-
-## Host vs. Client vs. Server
+### Host vs. Client vs. Server
 
 - **Host Application**: The user-facing application you are building. It manages connections to one or more MCP servers and orchestrates tool calls.
 - **MCP Client**: A component inside your host application that maintains a 1:1 connection with a single MCP server.
