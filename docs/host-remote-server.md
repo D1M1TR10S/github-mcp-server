@@ -142,7 +142,7 @@ export const GITHUB_OAUTH_CONFIG = {
 
 Your application must perform the standard Authorization Code flow.
 
-> **Security Note:**  
+> **Note:**  
 > [PKCE (Proof Key for Code Exchange)](https://datatracker.ietf.org/doc/html/rfc7636) is included in the MCP spec. Wile the GitHub MCP Server currently accepts tokens from OAuth apps without it today, PKCE support will soon be added and become a requirement. We recommend implementing it now to future-proof your integration.
 
 ```
