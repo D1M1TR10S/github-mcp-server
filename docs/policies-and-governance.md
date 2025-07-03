@@ -145,22 +145,22 @@ While GitHub's standard audit logs capture OAuth authorization and API activity,
 ### For Organizations
 
 **GitHub App Management**
-* Review GitHub App installations regularly
+* Review [GitHub App installations](https://docs.github.com/en/apps/using-github-apps/reviewing-and-modifying-installed-github-apps) regularly
 * Audit permissions and repository access
 * Monitor installation events in audit logs
 * Document approved GitHub Apps and their business purposes
 
 **OAuth App Governance**
-* Enable OAuth app access restrictions
+* Manage [OAuth App access policies](https://docs.github.com/en/organizations/managing-oauth-access-to-your-organizations-data/about-oauth-app-access-restrictions)
 * Establish review processes for approved applications
 * Monitor which third-party applications are requesting access
 * Maintain an allowlist of approved OAuth applications
 
-**Token Management Strategy**
+**Token Management**
 * Mandate fine-grained Personal Access Tokens over classic tokens
 * Establish token expiration policies (90 days maximum recommended)
 * Implement automated token rotation reminders
-* Review and enforce PAT restrictions at the appropriate level
+* Review and enforce [PAT restrictions](https://docs.github.com/en/organizations/managing-programmatic-access-to-your-organization/setting-a-personal-access-token-policy-for-your-organization) at the appropriate level
 
 ### For Developers and Users
 
@@ -179,20 +179,19 @@ While GitHub's standard audit logs capture OAuth authorization and API activity,
 ## Resources
 
 **MCP:**
-* Model Context Protocol Specification
-* Model Context Protocol Authorization
+* [Model Context Protocol Specification](https://modelcontextprotocol.io/specification/2025-03-26)
+* [Model Context Protocol Authorization](https://modelcontextprotocol.io/specification/draft/basic/authorization)
 
 **GitHub Governance & Controls:**
-* OAuth App Access Restrictions
-* Fine-grained Personal Access Tokens
-* GitHub App Permissions
-* PAT Policies
-
+* [OAuth App Access Restrictions](https://docs.github.com/en/organizations/managing-oauth-access-to-your-organizations-data/about-oauth-app-access-restrictions)
+* [Fine-grained Personal Access Tokens](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#fine-grained-personal-access-tokens)
+* [GitHub App Permissions](https://docs.github.com/en/apps/creating-github-apps/registering-a-github-app/choosing-permissions-for-a-github-app)
+* [PAT Policies](https://docs.github.com/en/organizations/managing-programmatic-access-to-your-organization/setting-a-personal-access-token-policy-for-your-organization)
 ---
 
 **Questions or Feedback?**
 
-Open an issue in the github-mcp-server repository with the label "policies & governance" attached for suggestions or questions around enterprise controls and security guardrails.
+Open an [issue in the github-mcp-server repository](https://github.com/github/github-mcp-server/issues) with the label "policies & governance" attached for suggestions or questions around enterprise controls and security guardrails.
 
 ---
 
