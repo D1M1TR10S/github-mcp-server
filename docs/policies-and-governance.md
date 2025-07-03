@@ -106,12 +106,6 @@ Access is always constrained by GitHub's public API permission model and the aut
 
 > **Exception:** Does NOT apply to GitHub App installation tokens (these are installation-scoped, not user-scoped)
 
-### Resources
-* [Approving updated permissions for a GitHub App](https://docs.github.com/en/apps/using-github-apps/approving-updated-permissions-for-a-github-app)Installing a GitHub App from GitHub Marketplace for your organizations
-* [About OAuth app access restrictions](https://docs.github.com/en/apps/using-github-apps/installing-a-github-app-from-github-marketplace-for-your-organizations)
-* [Setting a personal access token policy for your organization](https://docs.github.com/en/organizations/managing-oauth-access-to-your-organizations-data/about-oauth-app-access-restrictions)
-* [Managing your personal access tokens](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#fine-grained-personal-access-tokens)
-
 ## Current Limitations
 
 While the GitHub MCP Server provides dynamic tooling and capabilities, the following enterprise governance features are not yet available:
@@ -183,10 +177,14 @@ While GitHub's standard audit logs capture OAuth authorization and API activity,
 * [Model Context Protocol Authorization](https://modelcontextprotocol.io/specification/draft/basic/authorization)
 
 **GitHub Governance & Controls:**
-* [OAuth App Access Restrictions](https://docs.github.com/en/organizations/managing-oauth-access-to-your-organizations-data/about-oauth-app-access-restrictions)
-* [Fine-grained Personal Access Tokens](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#fine-grained-personal-access-tokens)
+* [Managing OAuth App Access](https://docs.github.com/en/organizations/managing-oauth-access-to-your-organizations-data/about-oauth-app-access-restrictions)
+* [Installing OAuth Apps](https://docs.github.com/en/apps/using-github-apps/installing-a-github-app-from-github-marketplace-for-your-organizations)
 * [GitHub App Permissions](https://docs.github.com/en/apps/creating-github-apps/registering-a-github-app/choosing-permissions-for-a-github-app)
+* [Updating permissions for a GitHub App](https://docs.github.com/en/apps/using-github-apps/approving-updated-permissions-for-a-github-app)Installing a GitHub App from GitHub Marketplace for your organizations
 * [PAT Policies](https://docs.github.com/en/organizations/managing-programmatic-access-to-your-organization/setting-a-personal-access-token-policy-for-your-organization)
+* [Fine-grained PATs](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#fine-grained-personal-access-tokens)
+* [Setting a PAT policy for your organization](https://docs.github.com/en/organizations/managing-oauth-access-to-your-organizations-data/about-oauth-app-access-restrictions)
+
 ---
 
 **Questions or Feedback?**
