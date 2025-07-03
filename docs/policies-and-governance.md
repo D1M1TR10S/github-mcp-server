@@ -191,8 +191,6 @@ While GitHub's standard audit logs capture OAuth authorization and API activity,
 
 **Questions or Feedback?**
 
-Open an [issue in the github-mcp-server repository](https://github.com/github/github-mcp-server/issues) with the label "policies & governance" attached for suggestions or questions around enterprise controls and security guardrails.
+Open an [issue in the github-mcp-server repository](https://github.com/github/github-mcp-server/issues) with the label "policies & governance" attached.
 
----
-
-**Note:** This document reflects GitHub MCP Server policies as of June 2025. Policies and capabilities continue to evolve based on customer feedback and security best practices.
+This document reflects GitHub MCP Server policies as of July 2025. Policies and capabilities continue to evolve based on customer feedback and security best practices.
