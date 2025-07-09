@@ -3,9 +3,9 @@
 The GitHub MCP Server is a [Model Context Protocol (MCP)](https://modelcontextprotocol.io/introduction) server that exposes GitHub data and actions through a single API. It supports both **hosted** and **local** deployment, and can be used by any MCP-compatible tool or agent.
 
 ### Use Cases
-- Read: files, diffs, commits, issues, pull requests, workflow runs, CI checks
-- Write: create or update issues, branches, PRs, comments, labels, workflows
-- Power AI assistants with live GitHub context and write access
+- Read: files, commits, issues, pull requests, CI/CD workflow runs, etc.
+- Write: create or update files, issues, branches, PRs, comments, labels, etc.
+- Power AI assistants with live GitHub context and write capabilities
 - Works in any MCP-supported host application (Copilot in VS Code or JetBrains, Claude, etc.)
 
 ### Deployment Modes
