@@ -1,14 +1,16 @@
 # GitHub MCP Server
 
-The GitHub MCP Server is a [Model Context Protocol (MCP)](https://modelcontextprotocol.io/introduction)
-server that provides seamless integration with GitHub APIs, enabling advanced
-automation and interaction capabilities for developers and tools.
+The GitHub MCP Server is a [Model Context Protocol (MCP)](https://modelcontextprotocol.io/introduction) server that exposes GitHub data and actions through a single API. It supports both **hosted** and **local** deployment, and can be used by any MCP-compatible tool or agent.
 
 ### Use Cases
+- Read: files, diffs, commits, issues, pull requests, workflow runs, CI checks
+- Write: create or update issues, branches, PRs, comments, labels, workflows
+- Power AI assistants with live GitHub context and write access
+- Works in any MCP-supported host application (Copilot in VS Code or JetBrains, Claude, etc.)
 
-- Automating GitHub workflows and processes.
-- Extracting and analyzing data from GitHub repositories.
-- Building AI powered tools and applications that interact with GitHub's ecosystem.
+### Deployment Modes
+1. Remote: Hosted by GitHub at `https://api.githubcopilot.com/mcp/`. Best for fast setup, production use, OAuth support, and automatic updates.
+2. Local: Runs client-side. Best for sandboxed development, custom tooling, GHES/on-prem, or air-gapped environments. Requires manual setup and runtime.
 
 ---
 
@@ -20,7 +22,8 @@ The remote GitHub MCP Server is hosted by GitHub and provides the easiest method
 
 ## Prerequisites
 
-1. An MCP host that supports the latest MCP specification and remote servers, such as [VS Code](https://code.visualstudio.com/).
+1. An MCP host application that supports the latest MCP specification and remote servers, such as [VS Code](https://code.visualstudio.com/).
+2. For OAuth authentication: the host application must have a registered GitHub App or OAuth App on GitHub for the Remote GitHub MCP Server.
 
 ## Installation
 
@@ -28,9 +31,7 @@ The remote GitHub MCP Server is hosted by GitHub and provides the easiest method
 
 For quick installation, use one of the one-click install buttons above. Once you complete that flow, toggle Agent mode (located by the Copilot Chat text input) and the server will start. Make sure you're using [VS Code 1.101](https://code.visualstudio.com/updates/v1_101) or [later](https://code.visualstudio.com/updates) for remote MCP and OAuth support.
 
-
-Alternatively, to manually configure VS Code, choose the appropriate JSON block from the examples below and add it to your host configuration:
-
+Alternatively, to configure the GitHub MCP Server manually, choose the appropriate JSON block from the examples below and add it to the MCP configuration file (`.vscode/mcp.json`) in VS Code:
 <table>
 <tr><th>Using OAuth</th><th>Using a GitHub PAT</th></tr>
 <tr><th align=left colspan=2>VS Code (version 1.101 or greater)</th></tr>
