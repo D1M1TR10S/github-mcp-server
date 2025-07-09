@@ -97,7 +97,7 @@ func GetCommit(getClient GetClientFn, t translations.TranslationHelperFunc) (too
 // ListCommits creates a tool to get commits of a branch in a repository.
 func ListCommits(getClient GetClientFn, t translations.TranslationHelperFunc) (tool mcp.Tool, handler server.ToolHandlerFunc) {
 	return mcp.NewTool("list_commits",
-			mcp.WithDescription(t("TOOL_LIST_COMMITS_DESCRIPTION", "Get list of commits of a branch in a GitHub repository")),
+			mcp.WithDescription(t("TOOL_LIST_COMMITS_DESCRIPTION", "Get list of commits of a branch in a GitHub repository. Returns at least 30 results per page by default, but can return more if specified using the perPage parameter (up to 100).")),
 			mcp.WithToolAnnotation(mcp.ToolAnnotation{
 				Title:        t("TOOL_LIST_COMMITS_USER_TITLE", "List commits"),
 				ReadOnlyHint: ToBoolPtr(true),
@@ -111,10 +111,10 @@ func ListCommits(getClient GetClientFn, t translations.TranslationHelperFunc) (t
 				mcp.Description("Repository name"),
 			),
 			mcp.WithString("sha",
-				mcp.Description("SHA or Branch name"),
+				mcp.Description("Commit SHA, branch or tag name to list commits of. If not provided, uses the default branch of the repository. If a commit SHA is provided, will list commits up to that SHA."),
 			),
 			mcp.WithString("author",
-				mcp.Description("Author username or email address"),
+				mcp.Description("Author username or email address to filter commits by"),
 			),
 			WithPagination(),
 		),
@@ -139,13 +139,17 @@ func ListCommits(getClient GetClientFn, t translations.TranslationHelperFunc) (t
 			if err != nil {
 				return mcp.NewToolResultError(err.Error()), nil
 			}
-
+			// Set default perPage to 30 if not provided
+			perPage := pagination.perPage
+			if perPage == 0 {
+				perPage = 30
+			}
 			opts := &github.CommitsListOptions{
 				SHA:    sha,
 				Author: author,
 				ListOptions: github.ListOptions{
 					Page:    pagination.page,
-					PerPage: pagination.perPage,
+					PerPage: perPage,
 				},
 			}
 
@@ -284,7 +288,7 @@ func CreateOrUpdateFile(getClient GetClientFn, t translations.TranslationHelperF
 				mcp.Description("Branch to create/update the file in"),
 			),
 			mcp.WithString("sha",
-				mcp.Description("SHA of file being replaced (for updates)"),
+				mcp.Description("Required if updating an existing file. The blob SHA of the file being replaced."),
 			),
 		),
 		func(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
@@ -466,7 +470,7 @@ func GetFileContents(getClient GetClientFn, getRawClient raw.GetRawClientFn, t t
 				mcp.Description("Accepts optional git refs such as `refs/tags/{tag}`, `refs/heads/{branch}` or `refs/pull/{pr_number}/head`"),
 			),
 			mcp.WithString("sha",
-				mcp.Description("Accepts optional git sha, if sha is specified it will be used instead of ref"),
+				mcp.Description("Accepts optional commit SHA. If specified, it will be used instead of ref"),
 			),
 		),
 		func(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
